@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Attendance Quiz</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/AttendanceQuiz.css}">
+</head>
+<body>
+<div class="header">
+    <p th:text="${class.get_class_name()} + ' Attendance Quiz'"></p>
+</div>
+<div class="sub-header">
+    <div class="welcome-msg">
+        <p th:text="'Welcome ' + ${student.get_first_name()} + ' ' + ${student.get_last_name()}"></p>
+    </div>
+    <div class="quiz-info">
+        <p th:text="'Date: ' + ${quiz.get_quiz_date()}"></p>
+        <p th:text="'End Time: ' + ${class.get_quiz_end_time()}"></p>
+    </div>
+</div>
+<div class="quiz-form">
+    <form action="quiz-submit" method="post">
+        <div class="question" th:each="question : ${quiz_questions}">
+            <div class="question-container">
+                <div class="question-text">
+                    <p th:text="${question.get_quiz_question()}"></p>
+                </div>
+                <div class="question_img" th:if="${question.get_question_img() != null}">
+                    <img th:src="'data:image/jpeg;base64, ' + ${T(org.apache.tomcat.util.codec.binary.Base64).encodeBase64String(question.get_question_img)}" alt="Question Image">
+                </div>
+            </div>
+            <div class="answer-container">
+                <div class="answer-choice">
+                    <label>
+                        <input type="radio" th:value="${question.get_option_1()}" th:name="'question_' + ${question.get_question_id()}">
+                        <span th:text="${question.get_option_1()}"></span>
+                    </label>
+                </div>
+                <div class="answer-choice">
+                    <label>
+                        <input type="radio" th:value="${question.get_option_2()}" th:name="'question_' + ${question.get_question_id()}">
+                        <span th:text="${question.get_option_2()}"></span>
+                    </label>
+                </div>
+                <div class="answer-choice" th:if="${question.get_option_3() != null}">
+                    <label>
+                        <input type="radio" th:value="${question.get_option_3()}" th:name="'question_' + ${question.get_question_id()}">
+                        <span th:text="${question.get_option_3()}"></span>
+                    </label>
+                </div>
+                <div class="answer-choice" th:if="${question.get_option_4() != null}">
+                    <label>
+                        <input type="radio" th:value="${question.get_option_4()}" th:name="'question_' + ${question.get_question_id()}">
+                        <span th:text="${question.get_option_4()}"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="submit-container">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</div>
+<div class="footer">
+    KRAUTER SOFTWARE. &copy 2024-2025 ALL RIGHTS RESERVED
+</div>
+</body>
+</html>

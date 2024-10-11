@@ -1,0 +1,134 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-image: url("../images/utd-background.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh; /* Ensure body takes the full viewport height */
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #1e4734;
+    color: white;
+    text-align: center;
+    font-size: 48px;
+    padding: 5px;
+}
+
+.container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-table {
+    display: flex;
+    width: 50%; /* Adjust the width of the login table */
+    height: 50%;
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 54px 55px, rgba(0, 0, 0, 0.12) 0 -12px 30px, rgba(0, 0, 0, 0.12) 0 4px 6px, rgba(0, 0, 0, 0.17) 0 12px 13px, rgba(0, 0, 0, 0.09) 0 -3px 5px;
+}
+
+.left-content {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.left-content img {
+    width: 100%; /* Set maximum width for the logo */
+    height: auto;
+}
+
+.right-content {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.input-container label {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 5px 5px;
+}
+
+input[type=text], input[type=password] {
+    width: 80%; /* Full width of the form */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #e9f0fe;
+}
+
+.error-container {
+    background-color: #df7515;
+    width: 80%;
+    margin-top: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.error-message {
+    color: white;
+    font-size: 16px;
+    width: 80%;
+    text-align: center;
+}
+
+.submit-container {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+}
+
+input[type=submit] {
+    width: 80%;
+    background-color: #24563f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 18px;
+}
+
+input[type=submit]:hover {
+    background-color: #1e4734;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 5px;
+    background-color: white;
+    font-size: 12px;
+}

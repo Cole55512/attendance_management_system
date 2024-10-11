@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Attendance Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/Login.css}">
+</head>
+<body>
+<div class="header">
+    University of Texas at Dallas
+</div>
+<div class="container">
+    <div class="login-table">
+        <div class="left-content">
+            <img th:src="@{/images/utd-name-logo.png}" alt="University Logo">
+        </div>
+        <div class="right-content">
+            <form action="attendance-quiz" method="post">
+                <div class="input-container">
+                    <label for="student_id">NetID</label>
+                    <input type="text" placeholder="Enter Your NetID" id="student_id" name="student_id"
+                           th:value="${student_id}">
+                </div>
+                <div class="input-container">
+                    <label for="quiz_password">Quiz Password</label>
+                    <input type="password" placeholder="Enter Quiz Password" id="quiz_password" name="quiz_password">
+                </div>
+                <div class="submit-container">
+                    <input type="submit" value="Start">
+                </div>
+                <div class="error-container">
+                    <div th:if="${error}" class="error-message" th:text="${error}"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    KRAUTER SOFTWARE. &copy 2024-2025 ALL RIGHTS RESERVED
+</div>
+</body>
+</html>
