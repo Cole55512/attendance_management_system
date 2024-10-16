@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Admin Portal</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-Admin Portal: Under Maintenance
+<div class="header">
+    <h1>University of Texas at Dallas</h1>
+    <div class="sub-header">
+        <label for="class_mgmt">
+            <input type="button" value="Class Management" id="class_mgmt"
+                   onclick="window.location.href='/admin-portal-class-management'" >
+        </label>
+        <label for="quiz_mgmt">
+            <input type="button" value="Quiz Management" id="quiz_mgmt"
+                   onclick="window.location.href='/admin-portal-quiz-management'">
+        </label>
+        <label for="password_mgmt">
+            <input type="button" value="Password Management" id="password_mgmt"
+                   onclick="window.location.href='/admin-portal-password-management'">
+        </label>
+    </div>
+</div>
 </body>
 </html>

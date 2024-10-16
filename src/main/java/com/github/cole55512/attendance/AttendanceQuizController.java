@@ -1,3 +1,11 @@
+// ####################################################################################################################
+// Filename: AttendanceQuizController.java
+//
+// Author: Nicholas Krauter
+// Date: 10/09/2024
+// Description: The 'AttendanceQuizController' class handles
+//
+// ####################################################################################################################
 package com.github.cole55512.attendance;
 
 import com.github.cole55512.attendance.entity.*;
@@ -5,6 +13,7 @@ import com.github.cole55512.attendance.repository.*;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +31,8 @@ import java.util.Map;
 public class AttendanceQuizController {
     private final quiz_questions_repo quiz_questions_repo;
     private final attendance_record_repo attendance_record_repo;
-    public AttendanceQuizController(quiz_questions_repo quiz_questions_repo, attendance_record_repo attendance_record_repo) {
+    public AttendanceQuizController(quiz_questions_repo quiz_questions_repo,
+                                    attendance_record_repo attendance_record_repo) {
         this.quiz_questions_repo = quiz_questions_repo;
         this.attendance_record_repo = attendance_record_repo;
     }
@@ -48,7 +58,7 @@ public class AttendanceQuizController {
     }
 
     @PostMapping("/quiz-submit")
-    public String submitQuiz(@RequestParam Map<String, String> formData, HttpSession session, HttpServletRequest request) {
+    public String submitQuiz(@RequestParam Map<String,String> quiz_data, HttpSession session, HttpServletRequest request) {
         student_info student = (student_info) session.getAttribute("student");
         quiz_info quiz = (quiz_info) session.getAttribute("quiz");
 
@@ -56,7 +66,7 @@ public class AttendanceQuizController {
         List<quiz_questions> quizQuestions = quiz_questions_repo.findQuizQuestions(quiz.get_quiz_id());
         double correctAnswers = 0;
         for (quiz_questions question : quizQuestions) {
-            String selectedAnswer = formData.get("question_" + question.get_question_id());
+            String selectedAnswer = quiz_data.get("question_" + question.get_question_id());
             if (selectedAnswer != null && selectedAnswer.equals(question.get_correct_answer())) {
                 correctAnswers++;
             }

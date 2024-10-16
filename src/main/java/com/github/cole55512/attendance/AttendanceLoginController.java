@@ -1,8 +1,8 @@
 // ####################################################################################################################
-// File: AttendanceQuizLoginController.java
+// Filename: AttendanceLoginController.java
 //
 // Author: Nicholas Krauter
-// Date: 09/21/24
+// Date: 09/21/2024
 // Description: The 'AttendanceQuizLoginController' class handles the authentication process for students attempting to
 // log in to their class's attendance quiz. This class compares the inputted student identification with the
 // 'student_id' stored in the 'student_info' database table. This class also validates the quiz password with data
@@ -12,39 +12,35 @@
 //
 // ####################################################################################################################
 package com.github.cole55512.attendance;
-
+// ########## IMPORT CLASSES ##########
 import com.github.cole55512.attendance.entity.class_info;
 import com.github.cole55512.attendance.entity.quiz_info;
 import com.github.cole55512.attendance.entity.student_info;
 import com.github.cole55512.attendance.repository.student_info_repo;
 import com.github.cole55512.attendance.repository.quiz_info_repo;
-import com.github.cole55512.attendance.repository.class_info_repo;
-
+// ########## IMPORT JAKARTA LIBRARIES ##########
 import jakarta.servlet.http.HttpSession;
+// ########## IMPORT SPRINGBOOT LIBRARIES ##########
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+// ########## IMPORT JAVA LIBRARIES ##########
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
-
+// ########## LOGIN CONTROLLER ##########
 @Controller
 public class AttendanceLoginController {
-
     // ########## REPOSITORIES ##########
     private final student_info_repo student_info_repo;
     private final quiz_info_repo quiz_info_repo;
-
-    // ########## CONTROLLER CONSTRUCTOR ##########
-    public AttendanceLoginController(student_info_repo student_info_repo, quiz_info_repo quiz_info_repo, class_info_repo class_info_repo) {
+    // ########## CONSTRUCTOR ##########
+    public AttendanceLoginController(student_info_repo student_info_repo, quiz_info_repo quiz_info_repo) {
         this.student_info_repo = student_info_repo; // Initialize 'student_info_repo'
         this.quiz_info_repo = quiz_info_repo;   // Initialize 'quiz_info_repo'
     }
-
     // ########## VALIDATE LOGIN ##########
     // - Function Purpose: This function handles the validation of student_id and quiz password for 'attendance-login'
     //  - 'student_id': user inputted id (compared to 'student_info.student_id')
@@ -57,12 +53,11 @@ public class AttendanceLoginController {
                                 @RequestParam("quiz_password") String quiz_password,
                                 RedirectAttributes redirectAttributes,
                                 HttpSession session) {
-        // ########## WEBSITE REDIRECT STRINGS ##########
+        // ########## REDIRECT STRINGS ##########
         String goto_login_page = "redirect:/attendance-login";
         String goto_attendance_quiz = "redirect:/attendance-quiz";
-
         // ---------- STEP 1: VALIDATE STUDENT_ID ----------
-        // Step 1.1: Check that 'student_id' is not empty
+        // 1.1: Check that 'student_id' is not empty
         if (student_id == null || student_id.trim().isEmpty()) {
             // IF 'student_id' is empty -> display empty id error
             redirectAttributes.addFlashAttribute("error", "Please Enter your NetID");
@@ -70,7 +65,7 @@ public class AttendanceLoginController {
             redirectAttributes.addFlashAttribute("student_id", student_id);
             return goto_login_page;  // Return to 'attendance-login'
         }
-        // Step 1.2: Check if the student exists in the database using 'student_id'
+        // 1.2: Check if the student exists in the database using 'student_id'
         // 'students' is a list of rows from the 'student_info' database table that correspond to the 'student_id'
         List<student_info> students = student_info_repo.findStudent(student_id);
         if (students.isEmpty()) {
@@ -81,16 +76,16 @@ public class AttendanceLoginController {
             return goto_login_page;    // Return to 'attendance-login'
         }
         // ---------- STEP 2: CHECK FOR ACTIVE QUIZ ----------
-        // Step 2: Check for active quiz in student's class
         LocalDate currentDate = LocalDate.now();    // Gets current date of attempted login
         LocalTime currentTime = LocalTime.now();    // Gets current time of attempted login
         quiz_info activeQuiz = null;
         student_info activeQuizStudent = null;
-
+        // Loop through all students
         for (student_info student : students) {
-            // Check for active quiz
+            // Check if student has an active quiz
             Optional<quiz_info> quiz = quiz_info_repo.findQuiz(student.get_key().get_class_id(),currentDate,currentTime);
             if (quiz.isPresent()) {
+                // IF student has quiz -> Set quiz and student entities
                 activeQuiz = quiz.get();
                 activeQuizStudent = student;
                 break;
@@ -103,7 +98,6 @@ public class AttendanceLoginController {
             redirectAttributes.addFlashAttribute("student_id", student_id);
             return goto_login_page; // Return to 'attendance-login'
         }
-
         // ---------- STEP 3: VALIDATE QUIZ_PASSWORD ----------
         // 3.1: Check that 'quiz_password' is not empty
         if (quiz_password == null || quiz_password.trim().isEmpty()) {

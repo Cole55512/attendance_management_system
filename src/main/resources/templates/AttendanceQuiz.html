@@ -7,20 +7,18 @@
 </head>
 <body>
 <div class="header">
-    <p th:text="${class.get_class_name()} + ' Attendance Quiz'"></p>
-</div>
-<div class="sub-header">
-    <div class="welcome-msg">
-        <p th:text="'Welcome ' + ${student.get_first_name()} + ' ' + ${student.get_last_name()}"></p>
-    </div>
-    <div class="quiz-info">
-        <p th:text="'Date: ' + ${quiz.get_quiz_date()}"></p>
+    <h1>University of Texas at Dallas</h1>
+    <div class="sub-header">
+        <p th:text="${quiz.get_quiz_date()}"></p>
+        <span class="spaced-dash">==========</span>
+        <p th:text="${class.get_class_name()} + ' Attendance Quiz'"></p>
+        <span class="spaced-dash">==========</span>
         <p th:text="'End Time: ' + ${class.get_quiz_end_time()}"></p>
     </div>
 </div>
 <div class="quiz-form">
     <form action="quiz-submit" method="post">
-        <div class="question" th:each="question : ${quiz_questions}">
+        <div th:each="question : ${quiz_questions}">
             <div class="question-container">
                 <div class="question-text">
                     <p th:text="${question.get_quiz_question()}"></p>

@@ -42,7 +42,7 @@ public class quiz_info {
     // QUIZ_DATE
     public String get_quiz_date() {
         LocalDate date = quiz_date.toLocalDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM. dd, yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
         return date.format(formatter);
     }
     public void set_quiz_date(Date quiz_date) {

@@ -1,8 +1,8 @@
 // ####################################################################################################################
-// File: AdminLoginController.java
+// Filename: AdminPortalLoginController.java
 //
 // Author: Nicholas Krauter
-// Date: 09/21/24
+// Date: 09/21/2024
 // Description: The 'AdminLoginController' handles the authentication process for administrators attempting to log in
 // to the admin portal. It validates the provided email and password against the stored credentials in the 'admin_info'
 // database table and appropriately redirects the user based on the outcome of the validation. If the login is
@@ -10,27 +10,24 @@
 //
 // ####################################################################################################################
 package com.github.cole55512.attendance;
-
+// ########## IMPORT CLASSES ##########
 import com.github.cole55512.attendance.entity.admin_info;
 import com.github.cole55512.attendance.repository.admin_info_repo;
-
+// ########## IMPORT SPRINGBOOT LIBRARIES ##########
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+// ########## LOGIN CONTROLLER ##########
 @Controller
 public class AdminPortalLoginController {
     // ########## REPOSITORIES ##########
     private final admin_info_repo admin_info_repo;
-
-    // ########## CONTROLLER CONSTRUCTOR ##########
+    // ########## CONSTRUCTOR ##########
     public AdminPortalLoginController(admin_info_repo admin_info_repo) {
         this.admin_info_repo = admin_info_repo; // Initialize 'admin_info_repo'
     }
-
     // ########## VALIDATE LOGIN ##########
     // - Function Purpose: This function handles email and password validation for the 'admin-portal' login
     //  - 'admin_email': user inputted email (compared to admin_info.admin_email)
@@ -43,10 +40,9 @@ public class AdminPortalLoginController {
                                      @RequestParam("admin_password") String admin_password,
                                      Model model,
                                      RedirectAttributes redirectAttributes) {
-        // ########## WEBSITE REDIRECT STRINGS ##########
+        // ########## REDIRECT STRINGS ##########
         String login_page = "redirect:/admin-login";
         String admin_portal = "AdminPortal";
-
         // ---------- STEP 1: VALIDATE ADMIN_EMAIL ----------
         // 1.1: Check that 'admin_email' is not empty
         if (admin_email == null || admin_email.trim().isEmpty()) {
@@ -54,7 +50,7 @@ public class AdminPortalLoginController {
             redirectAttributes.addFlashAttribute("error", "Please Enter an Email");
             // Maintain the users inputted email through redirect
             redirectAttributes.addFlashAttribute("admin_email", admin_email);
-            return login_page;    // Redirect back to 'admin-portal'
+            return login_page;    // Redirect to 'admin-portal'
         }
         // 1.2: Check if the 'admin_email' exists in database
         if (admin_info_repo.adminExists(admin_email) == 0) {
@@ -62,7 +58,7 @@ public class AdminPortalLoginController {
             redirectAttributes.addFlashAttribute("error", "Please Enter a Valid Email");
             // Maintain the users inputted email through redirect
             redirectAttributes.addFlashAttribute("admin_email", admin_email);
-            return login_page;    // Redirect back to 'admin-portal'
+            return login_page;    // Redirect to 'admin-portal'
         }
         // ---------- STEP 2: VALIDATE ADMIN_PASSWORD ----------
         // 2.1: Check that 'admin_password' is not empty
@@ -71,7 +67,7 @@ public class AdminPortalLoginController {
             redirectAttributes.addFlashAttribute("error", "Please Enter a Password");
             // Maintain the users inputted email through redirect
             redirectAttributes.addFlashAttribute("admin_email", admin_email);
-            return login_page;    // Redirect back to 'admin-portal'
+            return login_page;    // Redirect to 'admin-portal'
         }
         // 2.2: Check 'admin_password' exists in database
         admin_info admin = admin_info_repo.findAdmin(admin_email);  // Get 'admin' entity from 'admin_email'
@@ -80,7 +76,7 @@ public class AdminPortalLoginController {
             redirectAttributes.addFlashAttribute("error", "Incorrect Password");
             // Maintain the users inputted email through redirect
             redirectAttributes.addFlashAttribute("admin_email", admin_email);
-            return login_page;    // Redirect back to 'admin-portal'
+            return login_page;    // Redirect to 'admin-portal'
         }
         // ---------- STEP 3: LOGIN SUCCESSFUL ----------
         model.addAttribute("admin", admin); // Add 'admin' entity to model (will be used in 'admin-homepage')
