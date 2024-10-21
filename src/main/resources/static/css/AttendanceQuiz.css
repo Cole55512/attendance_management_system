@@ -2,7 +2,6 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100vw;
-    height: 100%;
     background-color: #f4f4f9;
     overflow-x: hidden;
 }
@@ -119,17 +118,4 @@ html, body {
 
 .submit-container input[type="submit"]:hover {
     background-color: #1e4734;
-}
-
-.footer {
-    margin: 0;
-    width: 100%;
-    padding: 5px;
-    background-color: white;
-    font-size: 10px;
-    text-align: center;
-    border-top: 1px solid #ddd;
-    bottom: 0;
-    left: 0;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 }

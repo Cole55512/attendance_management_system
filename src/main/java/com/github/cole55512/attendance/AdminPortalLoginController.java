@@ -42,7 +42,7 @@ public class AdminPortalLoginController {
                                      RedirectAttributes redirectAttributes) {
         // ########## REDIRECT STRINGS ##########
         String login_page = "redirect:/admin-login";
-        String admin_portal = "AdminPortal";
+        String admin_portal = "AdminPortalHome";
         // ---------- STEP 1: VALIDATE ADMIN_EMAIL ----------
         // 1.1: Check that 'admin_email' is not empty
         if (admin_email == null || admin_email.trim().isEmpty()) {

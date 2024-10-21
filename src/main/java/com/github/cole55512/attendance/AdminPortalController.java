@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @SessionAttributes("admin")
 public class AdminPortalController {
+    @GetMapping("/admin-portal")
+    public String goto_admin_home() {
+        return "AdminPortalHome";
+    }
     @GetMapping("/admin-portal-class-management")
     public String goto_class_mgmt() {
         return "ClassManagement";
@@ -18,5 +22,13 @@ public class AdminPortalController {
     @GetMapping("/admin-portal-password-management")
     public String goto_password_mgmt() {
         return "PasswordManagement";
+    }
+    @GetMapping("/admin-portal-attendance-report")
+    public String goto_attendance_report() {
+        return "AttendanceReport";
+    }
+    @GetMapping("/admin-portal-help")
+    public String goto_help() {
+        return "AdminPortalHelp";
     }
 }
